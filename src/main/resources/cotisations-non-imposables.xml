@@ -126,9 +126,5 @@
 		<property name="tauxSalarial" value="0.004880"></property>
 		<property name="tauxPatronal" value="0.007320"></property>
 	</bean>
-	
-	
-	
-
 
 </beans>
