@@ -3,12 +3,19 @@ package dev.paie.service;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import dev.paie.entite.Avantage;
+import dev.paie.entite.BulletinSalaire;
+import dev.paie.entite.ProfilRemuneration;
+import dev.paie.entite.RemunerationEmploye;
 import dev.paie.entite.ResultatCalculRemuneration;
 import dev.paie.config.ServicesConfig;
 
@@ -21,15 +28,32 @@ public class CalculerRemunerationServiceSimpleTest {
 	@Autowired 
 	private CalculerRemunerationService remunerationService;
 	
+	private ClassPathXmlApplicationContext context;
+	
+	@Before
+	public void context() {
+		this.context=new ClassPathXmlApplicationContext("jdd-config.xml");
+	}
+	
 	@Test
 	public void test_calculer() {
-		//TODO remplacer null par un objet bulletin
-		ResultatCalculRemuneration resultat = remunerationService.calculer(null);
+		ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("jdd-config.xml");
+		BulletinSalaire bulletin=(BulletinSalaire)context.getBean("bulletin1");
+		System.out.println(bulletin.getRemunerationEmploye().getMatricule());
+		ResultatCalculRemuneration resultat = remunerationService.calculer(bulletin);
 		assertThat(resultat.getSalaireBrut(), equalTo("2683.30"));
 		assertThat(resultat.getTotalRetenueSalarial(), equalTo("517.08"));
 		assertThat(resultat.getTotalCotisationsPatronales(), equalTo("1096.13"));
 		assertThat(resultat.getNetImposable(), equalTo("2166.22"));
 		assertThat(resultat.getNetAPayer(), equalTo("2088.41"));
+	}
+	
+	
+	@After
+	public void close_context() {
+		
+		this.context.close();
+		
 	}
 	
 }		

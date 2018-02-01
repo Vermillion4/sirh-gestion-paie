@@ -1,5 +1,7 @@
 package dev.paie.entite;
 
+import org.springframework.stereotype.Component;
+
 public class RemunerationEmploye {
 	
 	private Integer id;

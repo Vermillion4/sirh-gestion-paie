@@ -15,7 +15,7 @@ public class PaieUtils {
 	 * @param decimal nombre à formater
 	 * @return le nombre formaté
 	 */
-	public String formaterBigDecimal(BigDecimal decimal) {
+	public static String formaterBigDecimal(BigDecimal decimal) {
 		DecimalFormat df = new DecimalFormat();
 		// forcer le séparateur "." même sur un poste en français
 		df.setDecimalFormatSymbols(DecimalFormatSymbols.getInstance(Locale.UK));

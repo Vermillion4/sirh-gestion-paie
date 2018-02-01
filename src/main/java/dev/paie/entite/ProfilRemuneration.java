@@ -2,7 +2,6 @@ package dev.paie.entite;
 
 import java.util.List;
 
-
 public class ProfilRemuneration {
 
 	private Integer id;
