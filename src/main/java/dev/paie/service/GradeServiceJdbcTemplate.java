@@ -11,12 +11,9 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import com.mysql.jdbc.exceptions.MySQLDataException;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
-
 import dev.paie.entite.Grade;
 
-@Service
+//@Service
 public class GradeServiceJdbcTemplate implements GradeService {
 	
 	private JdbcTemplate jdbcTemplate;
@@ -38,7 +35,7 @@ public class GradeServiceJdbcTemplate implements GradeService {
 	@Autowired
 	public GradeServiceJdbcTemplate(@Qualifier("DataSource") DataSource dataSource) {
 		super();
-		this.setJdbcTemplate(new JdbcTemplate(dataSource));
+		this.jdbcTemplate=new JdbcTemplate(dataSource);
 	}
 
 	@Override

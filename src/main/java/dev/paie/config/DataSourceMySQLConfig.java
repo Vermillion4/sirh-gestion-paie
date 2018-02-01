@@ -30,7 +30,7 @@ public class DataSourceMySQLConfig {
 	@Autowired
 	DataSource data;
 	
-	@Bean
+    @Bean
 	public GradeService gradeService() {
 		GradeService gradeService = new GradeServiceJdbcTemplate(data);
 		
