@@ -8,7 +8,9 @@
 	<!-- importer une configuration dans une autre -->
 	<import resource="classpath:cotisations-imposables.xml" />
 	<import resource="classpath:cotisations-non-imposables.xml" />
-	
+	<import resource="classpath:entreprises.xml" />
+	<import resource="classpath:grades.xml" />
+	<import resource="classpath:profils-remuneration.xml" />
 	<!--  Informations de l'entreprise -->
 	
 	<bean id="entreprise" class="dev.paie.entite.Entreprise">

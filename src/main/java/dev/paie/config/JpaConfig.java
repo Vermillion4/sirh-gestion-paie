@@ -1,5 +1,7 @@
 package dev.paie.config;
 
+import java.util.Properties;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
@@ -24,7 +26,6 @@ public class JpaConfig {
 	}
 	
 	@Bean
-	//@Autowired
 	// Cette configuration nécessite une source de données configurée.
 	public EntityManagerFactory entityManagerFactory(DataSource dataSource) {
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -37,6 +38,9 @@ public class JpaConfig {
 		// alternative au persistence.xml
 		factory.setPackagesToScan("dev.paie.entite");
 		factory.setDataSource(dataSource);
+		Properties jpaProperties = new Properties(); 
+		jpaProperties.setProperty("javax.persistence.schema-generation.database.action", "drop-and-create");
+		factory.setJpaProperties(jpaProperties);
 		factory.afterPropertiesSet();
 		return factory.getObject();
 	}
