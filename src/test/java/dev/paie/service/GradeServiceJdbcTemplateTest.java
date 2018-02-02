@@ -1,7 +1,6 @@
 package dev.paie.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertSame;
 
 import java.math.BigDecimal;
 
@@ -12,10 +11,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import dev.paie.config.DataSourceMySQLConfig;
+import dev.paie.config.JpaConfig;
 import dev.paie.entite.Grade;
 
-//TODO compléter la configuration
-@ContextConfiguration(classes = { DataSourceMySQLConfig.class })
+@ContextConfiguration(classes = { DataSourceMySQLConfig.class, GradeServiceJdbcTemplate.class })
 //Configuration JUnit pour que Spring prenne la main sur le cycle de vie du test
 @RunWith(SpringRunner.class)
 public class GradeServiceJdbcTemplateTest {

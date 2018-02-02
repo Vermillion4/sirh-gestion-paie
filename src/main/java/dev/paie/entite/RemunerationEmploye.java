@@ -1,13 +1,31 @@
 package dev.paie.entite;
 
-import org.springframework.stereotype.Component;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table
 public class RemunerationEmploye {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
+	
+	@Column
 	private String matricule;
+	
+	@ManyToOne
 	private Entreprise entreprise;
+	
+	@ManyToOne
 	private ProfilRemuneration profilRemuneration;
+	
+	@ManyToOne
 	private Grade grade;
 	
 	public String getMatricule() {

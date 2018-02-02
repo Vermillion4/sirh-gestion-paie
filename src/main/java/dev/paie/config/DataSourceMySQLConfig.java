@@ -26,15 +26,7 @@ public class DataSourceMySQLConfig {
 		dataSource.setPassword("Q5P4fZ0ErEhpAbvPnCZ");
 		return dataSource;
 	}
-	
-	@Autowired
-	DataSource data;
-	
-    @Bean
-	public GradeService gradeService() {
-		GradeService gradeService = new GradeServiceJdbcTemplate(data);
-		
-		return gradeService;
-	}
+
+ 
 	
 }

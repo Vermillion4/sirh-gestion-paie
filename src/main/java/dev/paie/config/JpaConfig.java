@@ -1,23 +1,16 @@
 package dev.paie.config;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
-import java.util.ResourceBundle;
-
-import javax.persistence.EntityManagerFactory;
-
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import dev.paie.service.CotisationService;
-import dev.paie.service.CotisationServiceJpa;
 
 @EnableTransactionManagement
 @Configuration
@@ -30,25 +23,9 @@ public class JpaConfig {
 		return txManager;
 	}
 	
-	@Bean 
-	public CotisationService cotisationService() {
-		return new CotisationServiceJpa();
-	}
-	
 	@Bean
-	public DataSource dataSource() {
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		String sqlServer=ResourceBundle.getBundle("app").getString("jdbc.sqlServer");
-		dataSource.setUrl("jdbc:mysql://"+sqlServer+":3306/bwnpa8fim");
-		dataSource.setUsername("ut97yq5xeo9kqp6u");
-		dataSource.setPassword("Q5P4fZ0ErEhpAbvPnCZ");
-		return dataSource;
-	}
-	
-	@Bean
+	//@Autowired
 	// Cette configuration nécessite une source de données configurée.
-	// Elle s'utilise donc en association avec un autre fichier de configuration définissant un bean DataSource.
 	public EntityManagerFactory entityManagerFactory(DataSource dataSource) {
 		HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
 		vendorAdapter.setGenerateDdl(true);

@@ -6,34 +6,20 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
 import dev.paie.entite.Grade;
 
-//@Service
+@Service
 public class GradeServiceJdbcTemplate implements GradeService {
+	
 	
 	private JdbcTemplate jdbcTemplate;
 	
-	/**
-	 * @return the jdbcTemplate
-	 */
-	public JdbcTemplate getJdbcTemplate() {
-		return jdbcTemplate;
-	}
-
-	/**
-	 * @param jdbcTemplate the jdbcTemplate to set
-	 */
-	public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-		this.jdbcTemplate = jdbcTemplate;
-	}
-
 	@Autowired
-	public GradeServiceJdbcTemplate(@Qualifier("DataSource") DataSource dataSource) {
+	public GradeServiceJdbcTemplate(DataSource dataSource) {
 		super();
 		this.jdbcTemplate=new JdbcTemplate(dataSource);
 	}

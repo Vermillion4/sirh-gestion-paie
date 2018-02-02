@@ -2,6 +2,7 @@ package dev.paie.service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -56,27 +57,31 @@ public class CalculerRemunerationServiceSimple implements CalculerRemunerationSe
 		final BigDecimal NET_IMPOSABLE = SALAIRE_BRUT.subtract(new BigDecimal(PaieUtils.formaterBigDecimal(total_retenue_salariale)));
 		
 		BigDecimal cotisations=new BigDecimal("0");
-		List<Cotisation> cotisationsImposables=bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsNonImposables();
+		List<Cotisation> cotisationsImposables=bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsImposables();
 		for(Cotisation cotisation:cotisationsImposables) {
 			if(cotisation.getTauxSalarial()==null) {
 				continue;
 			}
-			cotisations=cotisations.add(cotisation.getTauxSalarial().multiply(SALAIRE_BRUT));
+
+			cotisations=(new BigDecimal(PaieUtils.formaterBigDecimal(cotisations)))
+					.add(cotisation.getTauxSalarial()
+							.multiply(new BigDecimal(PaieUtils.formaterBigDecimal(SALAIRE_BRUT)))
+			)
+			;
 		}
 		
-		final BigDecimal NET_A_PAYER = NET_IMPOSABLE.subtract(cotisations);
+		final BigDecimal NET_A_PAYER = (new BigDecimal(PaieUtils.formaterBigDecimal(NET_IMPOSABLE))).subtract(cotisations);
 		ResultatCalculRemuneration resultat=new ResultatCalculRemuneration();
-		System.out.println("Et maintenant ?"+PaieUtils.formaterBigDecimal(NET_A_PAYER));
+		
 		resultat.setSalaireDeBase(PaieUtils.formaterBigDecimal(SALAIRE_BASE));
 		resultat.setSalaireBrut(PaieUtils.formaterBigDecimal(SALAIRE_BRUT));
 		resultat.setTotalRetenueSalarial(PaieUtils.formaterBigDecimal(total_retenue_salariale));
 		resultat.setTotalCotisationsPatronales(PaieUtils.formaterBigDecimal(total_cotisations_patronales));
-		//System.out.println("Le net : "+NET_IMPOSABLE);
+
 		resultat.setNetImposable(PaieUtils.formaterBigDecimal(NET_IMPOSABLE));
-		//System.out.println("Le net : "+NET_A_PAYER);
 		resultat.setNetAPayer(PaieUtils.formaterBigDecimal(NET_A_PAYER));
 		
 		return resultat;
 	}
-
+	
 }
