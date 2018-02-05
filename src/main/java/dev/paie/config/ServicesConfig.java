@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ImportResource;
 
 @Configuration
 @ComponentScan({"dev.paie.service","dev.paie.util"})
-@ImportResource("app-config.xml")
+@ImportResource("classpath:app-config.xml")
 @Import(DataSourceMySQLConfig.class)
 public class ServicesConfig {
 	
