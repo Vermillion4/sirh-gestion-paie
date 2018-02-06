@@ -11,10 +11,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import dev.paie.config.JpaConfig;
+import dev.paie.config.ServicesConfigSpe;
 import dev.paie.entite.Cotisation;
 
 
-@ContextConfiguration(classes = { JpaConfig.class })
+@ContextConfiguration(classes = { ServicesConfigSpe.class,JpaConfig.class })
 //Configuration JUnit pour que Spring prenne la main sur le cycle de vie du test
 @RunWith(SpringRunner.class)
 public class CotisationServiceJpaTest {

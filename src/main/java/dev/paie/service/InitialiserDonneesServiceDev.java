@@ -1,21 +1,21 @@
 package dev.paie.service;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.TemporalAdjusters;
 import java.util.stream.IntStream;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 
+import dev.paie.config.InitDataConfig;
 import dev.paie.entite.Cotisation;
 import dev.paie.entite.Entreprise;
 import dev.paie.entite.Grade;
+import dev.paie.entite.Periode;
 import dev.paie.entite.ProfilRemuneration;
 
 @Transactional	
@@ -25,19 +25,18 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 	// injecté une instance d'EntityManager
 	@PersistenceContext private EntityManager em;
 	
-	@Autowired 
-	AnnotationConfigWebApplicationContext context;
-	
 	@Override
 	public void initialiser() {
-		
+
 		/* Ajout des entreprises */
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(InitDataConfig.class);
+
 		context.getBeansOfType(Entreprise.class).forEach((beanEntId,entreprise)->em.persist(entreprise));
 		
 		/*
 		 * Ajout des cotisations
 		 */
-		context.getBeansOfType(Cotisation.class).forEach((beanEntId,cotisation)->em.persist(cotisation));
+		context.getBeansOfType(Cotisation.class).values().stream().distinct().forEach((cotisation)->em.persist(cotisation));
 		
 		/* Ajout des grades */
 		context.getBeansOfType(Grade.class).forEach((beanGradId,grade)->em.persist(grade));
@@ -47,13 +46,16 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 		
 		IntStream.range(1,12).forEach(mois->{
 				int year=LocalDate.now().getYear();
-				LocalDate startDateInclusive=LocalDate.of(year, mois, 1);
-				LocalDate endDateExclusive=startDateInclusive.with(TemporalAdjusters.lastDayOfMonth());
-				Period periode= Period.between(startDateInclusive, endDateExclusive);
-				em.persist(periode);
+				LocalDate dateDebut=LocalDate.of(year, mois, 1);
+				LocalDate dateFin=dateDebut.with(TemporalAdjusters.lastDayOfMonth());
+				Periode periodeBase=new Periode();
+				periodeBase.setDateDebut(dateDebut);
+				periodeBase.setDateFin(dateFin);
+				em.persist(periodeBase);
 			}
 		);
-		
+	
+		context.close();
 	}
 
 }

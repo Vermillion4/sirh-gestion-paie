@@ -1,5 +1,7 @@
 package dev.paie.entite;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,6 +21,9 @@ public class RemunerationEmploye {
 	@Column
 	private String matricule;
 	
+	@Column
+	private LocalDateTime date;
+	
 	@ManyToOne
 	private Entreprise entreprise;
 	
@@ -35,6 +40,15 @@ public class RemunerationEmploye {
 	public void setMatricule(String matricule) {
 		this.matricule = matricule;
 	}
+	
+	public LocalDateTime getDate() {
+		return date;
+	}
+	
+	public void setDate(LocalDateTime date) {
+		this.date = date;
+	}
+	
 	
 	public Entreprise getEntreprise() {
 		return entreprise;

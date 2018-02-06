@@ -12,12 +12,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import dev.paie.config.ServicesConfig;
+import dev.paie.config.ServicesConfigSpe;
 import dev.paie.entite.BulletinSalaire;
 import dev.paie.entite.ResultatCalculRemuneration;
 
 //Sélection des classes de configuration Spring à utiliser lors du test
-@ContextConfiguration(classes = { ServicesConfig.class })
+@ContextConfiguration(classes = { ServicesConfigSpe.class })
 //Configuration JUnit pour que Spring prenne la main sur le cycle de vie du test
 @RunWith(SpringRunner.class)
 public class CalculerRemunerationServiceSimpleTest {
@@ -34,7 +34,7 @@ public class CalculerRemunerationServiceSimpleTest {
 	
 	@Test
 	public void test_calculer() {
-		ClassPathXmlApplicationContext context=new ClassPathXmlApplicationContext("jdd-config.xml");
+
 		BulletinSalaire bulletin=(BulletinSalaire)context.getBean("bulletin1");
 		ResultatCalculRemuneration resultat = remunerationService.calculer(bulletin);
 		assertThat(resultat.getSalaireBrut(), equalTo("2683.30"));

@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import dev.paie.config.DataSourceMySQLConfig;
 import dev.paie.config.JpaConfig;
 import dev.paie.entite.Grade;
+import dev.paie.util.PaieUtils;
 
 @ContextConfiguration(classes = { DataSourceMySQLConfig.class, GradeServiceJdbcTemplate.class })
 //Configuration JUnit pour que Spring prenne la main sur le cycle de vie du test
@@ -27,7 +28,7 @@ public class GradeServiceJdbcTemplateTest {
 		Grade gradeTest=new Grade();
 		gradeTest.setCode("G01");
 		gradeTest.setNbHeuresBase(new BigDecimal("7.4"));
-		gradeTest.setTauxBase(new BigDecimal("0.0575"));
+		gradeTest.setTauxBase(new BigDecimal(PaieUtils.formaterBigDecimal(new BigDecimal("0.0575"))));
 		gradeService.sauvegarder(gradeTest);
 	//TODO vérifier qu'il est possible de récupérer le nouveau grade via la méthode lister
 		Grade gradeBase=gradeService.consulter("G01");
@@ -36,7 +37,7 @@ public class GradeServiceJdbcTemplateTest {
 		Grade nouveauGrade=new Grade();
 		nouveauGrade.setCode("G01");
 		nouveauGrade.setNbHeuresBase(new BigDecimal("21"));
-		nouveauGrade.setTauxBase(new BigDecimal("0.0575"));
+		nouveauGrade.setTauxBase(new BigDecimal(PaieUtils.formaterBigDecimal(new BigDecimal("0.0575"))));
 		gradeService.mettreAJour(nouveauGrade);
 	//TODO vérifier que les modifications sont bien prises en compte via la méthode lister
 		gradeBase=gradeService.consulter("G01");

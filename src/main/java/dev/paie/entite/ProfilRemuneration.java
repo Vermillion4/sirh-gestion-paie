@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -21,13 +23,25 @@ public class ProfilRemuneration {
 	@Column
 	private String code;
 
+	/**
+	 * Table sur Many to Many a besoin de jointures pous ne pas genere de SqlException, causees par des transactions.
+	 */
 	@ManyToMany
+	@JoinTable(name="ProfilRem_CotisationNImp",
+	joinColumns=@JoinColumn(name="ID_RMPR", referencedColumnName="id"),
+	inverseJoinColumns=@JoinColumn(name="ID_COTIS", referencedColumnName="id"))
 	private List<Cotisation> cotisationsNonImposables;
 	
 	@ManyToMany
+	@JoinTable(name="REMUNPROFIL_COTISATION_NON_IMPOSABLE",
+	joinColumns=@JoinColumn(name="ID_RMPR", referencedColumnName="id"),
+	inverseJoinColumns=@JoinColumn(name="ID_COTIS", referencedColumnName="id"))
 	private List<Cotisation> cotisationsImposables;
 	
 	@ManyToMany
+	@JoinTable(name="REMUNPROFIL_AVANTAGE",
+	joinColumns=@JoinColumn(name="ID_RMPR", referencedColumnName="id"),
+	inverseJoinColumns=@JoinColumn(name="ID_AVANTAGE", referencedColumnName="id"))
 	private List<Avantage> avantages;
 
 	public Integer getId() {
