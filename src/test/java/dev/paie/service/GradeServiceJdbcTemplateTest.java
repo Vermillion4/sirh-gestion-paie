@@ -11,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import dev.paie.config.DataSourceMySQLConfig;
-import dev.paie.config.JpaConfig;
 import dev.paie.entite.Grade;
 import dev.paie.util.PaieUtils;
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+<display-name>paie</display-name>
+
+<session-config>
+  <!-- Disables URL-based sessions (no more 'jsessionid' in the URL using Tomcat) -->
+  <tracking-mode>COOKIE</tracking-mode>
+</session-config>
+
+	<filter>
+	    <filter-name>JSPLibs</filter-name>
+	    <filter-class>dev.paie.web.util.JSTLFilter</filter-class>
+	</filter>
+	 
+	<filter-mapping>
+	    <filter-name>JSPLibs</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<!-- error-code related error pages -->
+	<error-page>
+	   <error-code>404</error-code>
+	   <location>/ErrorHandler</location>
+	</error-page>
+
+	<!-- exception-type related error pages -->
+	<error-page>
+	   <exception-type>
+	      javax.servlet.ServletException
+	   </exception-type >
+	   <location>/ErrorHandler</location>
+	</error-page>
+</web-app>

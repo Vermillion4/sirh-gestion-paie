@@ -54,7 +54,7 @@
                     <form:select id="entreprises" path="entreprise">
 						<c:forEach var="entreprise" items="${entreprises}">
 								<!--  ${entreprise.denomination} -->
-								<form:option value="2" />
+								<form:option value="${entreprise.denomination}" />
 						</c:forEach>
 					</form:select> 
                 </div>
@@ -69,7 +69,7 @@
 					<form:select id="profils" path="profilRemuneration" >
 					<c:forEach var="typeProfil" items="${profils}">
 					<!--  ${typeProfil.code} -->
-						<form:option value="1"/>
+						<form:option value="${typeProfil.code}"/>
 					</c:forEach>
 					</form:select> 
                 </div>
@@ -85,7 +85,7 @@
 					<c:forEach var="grade" items="${grades}">
 						<f:formatNumber value = "${grade.tauxBase*grade.nbHeuresBase*12}" type = "currency" pattern="# ¤" var="gradeInfos" />
 						<!-- ${grade.code} - ${gradeInfos} / an  -->
-						<form:option value="1"></form:option>
+						<form:option value="${grade.code} - ${gradeInfos} / an"></form:option>
 					</c:forEach>
 					</form:select> 
                 </div>
