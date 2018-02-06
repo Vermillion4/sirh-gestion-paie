@@ -30,7 +30,7 @@ public class CalculerRemunerationServiceSimple implements CalculerRemunerationSe
 		final BigDecimal NB_HEURES_BASE=bulletin.getRemunerationEmploye().getGrade().getNbHeuresBase();
 		final BigDecimal TAUX_BASE=bulletin.getRemunerationEmploye().getGrade().getTauxBase();
 		final BigDecimal SALAIRE_BASE = NB_HEURES_BASE.multiply(TAUX_BASE);
-		final BigDecimal PRIME_EXCEPTIONNELLE=bulletin.getPrimeExceptionnelle();
+		final BigDecimal PRIME_EXCEPTIONNELLE=bulletin.getPrimeExceptionnelle()==null?new BigDecimal("0"):bulletin.getPrimeExceptionnelle();
 		final BigDecimal SALAIRE_BRUT =  SALAIRE_BASE.add(PRIME_EXCEPTIONNELLE);
 		BigDecimal total_retenue_salariale = new BigDecimal("0");
 		for(int index=0;index<bulletin.getRemunerationEmploye().getProfilRemuneration().getCotisationsNonImposables().size();index++) {

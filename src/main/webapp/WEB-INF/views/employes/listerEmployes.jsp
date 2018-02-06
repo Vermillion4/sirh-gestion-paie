@@ -11,21 +11,23 @@
 </head>
 <body>
 	<h1>Liste des employés</h1>
-	<a href="/creer"><button type="input" value="Ajouter un employe"></button></a>
-	<table>
+	<form action="creer">
+   		<input type="submit" value="Ajouter un employe" />
+	</form>
+	<table class="container" border="1">
 		<thead>
-			<tr>
-			<th>Date/heure création</th>
-			<th>Matricule</th>
-			<th>Grade</th>
+			<tr class="row">
+			<th class="col">Date/heure création</th>
+			<th class="col">Matricule</th>
+			<th class="col">Grade</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="employe" items="${employes}">
-				<tr>
-					<td>employe.date</td>
-					<td>employe.matricule</td>
-					<td>employe.grade</td>
+				<tr class="row">
+					<td class="col">${employe.date}</td>
+					<td class="col">${employe.matricule}</td>
+					<td class="col">${employe.grade.code}</td>
 				</tr>
 			</c:forEach> 
 		</tbody>

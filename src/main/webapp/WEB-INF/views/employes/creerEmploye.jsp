@@ -51,10 +51,10 @@
             <div class="row m-3">
                 <div class="col-2 offset-2">Entreprise</div>
                 <div class="col">
-                    <form:select id="entreprises" path="entreprise">
+                    <form:select id="entreprises" path="entreprise.id">
 						<c:forEach var="entreprise" items="${entreprises}">
 								<!--  ${entreprise.denomination} -->
-								<form:option value="${entreprise.denomination}" />
+								<form:option value="${entreprise.id}">${entreprise.denomination }</form:option>
 						</c:forEach>
 					</form:select> 
                 </div>
@@ -66,10 +66,10 @@
                 <div class="col-2 offset-2">Profil</div>
                 <div class="col">
 
-					<form:select id="profils" path="profilRemuneration" >
+					<form:select id="profils" path="profilRemuneration.id" >
 					<c:forEach var="typeProfil" items="${profils}">
 					<!--  ${typeProfil.code} -->
-						<form:option value="${typeProfil.code}"/>
+						<form:option value="${typeProfil.id}">${typeProfil.code}</form:option>
 					</c:forEach>
 					</form:select> 
                 </div>
@@ -80,12 +80,12 @@
             <div class="row m-3">
                 <div class="col-2 offset-2">Grade</div>
                 <div class="col">
-					<form:select id="grades" path="grade">
+					<form:select id="grades" path="grade.id">
 					<f:setLocale value = "fr_FR"/>
 					<c:forEach var="grade" items="${grades}">
 						<f:formatNumber value = "${grade.tauxBase*grade.nbHeuresBase*12}" type = "currency" pattern="# ¤" var="gradeInfos" />
 						<!-- ${grade.code} - ${gradeInfos} / an  -->
-						<form:option value="${grade.code} - ${gradeInfos} / an"></form:option>
+						<form:option value="${grade.id}">${grade.code} - ${gradeInfos} / an</form:option>
 					</c:forEach>
 					</form:select> 
                 </div>

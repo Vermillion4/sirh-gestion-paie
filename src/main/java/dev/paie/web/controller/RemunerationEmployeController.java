@@ -47,7 +47,6 @@ public class RemunerationEmployeController {
 	public ModelAndView creerEmploye() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("employes/creerEmploye");
-		mv.addObject("prefixMatricule","M00");
 		
 		/**
 		 * L'insantce de l'employe que nous voulons récupérer.
@@ -76,7 +75,11 @@ public class RemunerationEmployeController {
 	
 	@RequestMapping(method = RequestMethod.POST, path = "/creer")
 	public String ajouterEmploye(@ModelAttribute("employe") RemunerationEmploye employe) {
-		ModelAndView mv = new ModelAndView();
+		
+		if(!verifieEmploye(employe)) {
+			return "redirect:/mvc/employes/error";
+		}
+		
 		employe.setDate(LocalDateTime.now());
 		employeRepository.save(employe);
 		return "redirect:/mvc/employes/lister";
@@ -89,6 +92,23 @@ public class RemunerationEmployeController {
 		mv.setViewName("employes/listerEmployes");
 		return mv;
 	}
+	
+	/**
+	 * Fonction de validation avant creation d'un employe.
+	 * @param employe : l'employe qui veut s'enregistrer.
+	 * @return si l'employe peut etre crée.
+	 */
+	boolean verifieEmploye(RemunerationEmploye employe){
+		boolean verifMatricule=employe.getMatricule().matches("[M,C,T][0-9]*");
+		boolean verifNomEntreprise=
+				entrepriseRepository.findAll().stream().filter(entreprise->entreprise.getId().equals(employe.getEntreprise().getId()))
+				.count()>0;
+		boolean verifGrade=
+				gradeRepository.findAll().stream().filter(grade->grade.getId().equals(employe.getGrade().getId()))
+				.count()>0;
+		return verifMatricule && verifNomEntreprise && verifGrade;
+	}
+	
 	/**
 	 * 
 	 * @return la liste des entreprises/
