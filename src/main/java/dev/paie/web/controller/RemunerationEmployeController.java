@@ -12,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ import dev.paie.repository.ProfilRepository;
 
 @Controller
 @RequestMapping("/employes")
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class RemunerationEmployeController {
 	
 	@Autowired private CotisationRepository cotisationRepository;
@@ -88,6 +90,7 @@ public class RemunerationEmployeController {
 	@RequestMapping(method = RequestMethod.GET, path = "/lister")
 	public ModelAndView afficherEmployes() {
 		ModelAndView mv = new ModelAndView();
+		mv.setViewName("Les employes");
 		mv.addObject("employes",employeRepository.findAll());
 		mv.setViewName("employes/listerEmployes");
 		return mv;

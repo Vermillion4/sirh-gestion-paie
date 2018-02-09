@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,6 +25,7 @@ import dev.paie.service.CalculerRemunerationServiceSimple;
 
 @Controller
 @RequestMapping("/bulletins")
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class BulletinSalaireController {
 	
 
@@ -37,7 +39,7 @@ public class BulletinSalaireController {
 		mv.setViewName("bulletins/creerBulletin");
 		
 		/**
-		 * L'insantce du bulletin que nous voulons récupérer.
+		 * L'instance du bulletin que nous voulons récupérer.
 		 */
 		BulletinSalaire bulletin = new BulletinSalaire();
 		mv.addObject("bulletin", bulletin);
