@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests()
+		.antMatchers("/bootstrap/**").permitAll()
 		// Permettre aux utilisateurs de lister les employes ou les bulletins.
 		.antMatchers("**/lister").permitAll()
 		.and()

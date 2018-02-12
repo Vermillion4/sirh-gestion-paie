@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>Paie - App</title>
 
-<link rel="stylesheet" href='<c:url value="/bootstrap-4.0.0/css/bootstrap.min.css"></c:url>'/>
+<link rel="stylesheet" href='<c:url value="/bootstrap-4.0.0/dist/css/bootstrap.min.css"></c:url>'/>
 
 </head>
 <body class="container">

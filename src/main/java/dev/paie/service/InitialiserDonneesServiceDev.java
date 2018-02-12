@@ -72,6 +72,7 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 		Utilisateur utilisateur=new Utilisateur();
 		utilisateur.setNomUtilisateur("utilisateur");
 		utilisateur.setMotDePasse(iciMotDePasseHashe);
+		utilisateur.setEstActif(true);
 		utilisateur.setRole(ROLES.ROLE_VISITEUR);
 		utilisateurs.save(utilisateur);
 		
@@ -80,6 +81,7 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 		Utilisateur magic=new Utilisateur();
 		magic.setNomUtilisateur(username);
 		magic.setMotDePasse(password);
+		magic.setEstActif(true);
 		magic.setRole(ROLES.ROLE_ADMINISTRATEUR);
 		utilisateurs.save(magic);
 		
@@ -88,6 +90,7 @@ public class InitialiserDonneesServiceDev implements InitialiserDonneesService {
 		Utilisateur admin=new Utilisateur();
 		admin.setNomUtilisateur(adminName);
 		admin.setMotDePasse(passAdmin);
+		admin.setEstActif(true);
 		admin.setRole(ROLES.ROLE_UTILISATEUR);
 		utilisateurs.save(admin);
 	}
